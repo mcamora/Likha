@@ -1,0 +1,53 @@
+{% comment %}
+This is a reusable product grid component that can be included in any page.
+Usage:
+{% include 'base-product-grid.html' with products=products %}
+
+Where 'products' is a list of product objects with the following properties:
+- image_url: URL of the product image
+- name: Name of the product
+- category: Category or creator of the product
+- price: Price of the product
+- description: Description of the product
+- rating: Rating out of 5 (float)
+- reviews: Number of reviews (int)
+{% endcomment %}
+
+<div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3">
+    {% for product in products %}
+    <!-- Product Card -->
+    <div class="group relative">
+        <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100">
+            <img src="{{ product.image_url }}" alt="{{ product.name }}" class="h-full w-full object-cover object-center group-hover:opacity-75">
+            <div class="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                <button class="w-full rounded-md bg-white bg-opacity-90 py-2 text-sm font-medium text-gray-900 shadow-sm hover:bg-opacity-100"
+                       onclick="openQuickView('{{ product.name }}', '{{ product.category }}', '{{ product.image_url }}', '₱{{ product.price }}', '{{ product.description }}')">
+                    Quick View
+                </button>
+            </div>
+        </div>
+        <div class="mt-4">
+            <h3 class="text-base font-medium text-gray-900">
+                <a href="{{ product.url|default:'/product-detail' }}">
+                    <span aria-hidden="true" class="absolute inset-0"></span>
+                    {{ product.name }}
+                </a>
+            </h3>
+            <p class="mt-1 text-sm text-gray-500">{{ product.category }}</p>
+            <div class="mt-1 flex items-center">
+                <div class="flex items-center">
+                    {% for i in "12345" %}
+                        {% if forloop.counter <= product.rating %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FCD34D" stroke="#FCD34D" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        {% else %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#E5E7EB" stroke="#E5E7EB" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <p class="ml-1 text-xs text-gray-500">({{ product.reviews }})</p>
+            </div>
+            <p class="mt-2 text-base font-medium text-gray-900">₱{{ product.price }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>

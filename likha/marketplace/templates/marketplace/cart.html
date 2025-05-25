@@ -1,0 +1,322 @@
+{% extends 'marketplace/base.html' %}
+
+{% load static %}
+{% block title %}Your Cart - Likha{% endblock %}
+
+{% block content %}
+<!-- Breadcrumbs -->
+<nav class="bg-white px-4 py-3 text-sm md:px-6" aria-label="Breadcrumb">
+    <ol class="flex items-center space-x-2">
+        <li>
+            <a href="{% url 'home' %}" class="text-gray-500 hover:text-gray-700">Home</a>
+        </li>
+        <li class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-gray-400"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <span class="text-gray-900 font-medium">Your Cart</span>
+        </li>
+    </ol>
+</nav>
+
+<!-- Cart Content -->
+<div class="bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900">Your Shopping Cart</h1>
+
+        <!-- Cart items -->
+        <div id="cart-items" class="mt-8">
+            <!-- Will be populated by JavaScript -->
+        </div>
+
+        <!-- Empty cart display -->
+        <div id="empty-cart" class="hidden text-center py-16">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">Your cart is empty</h3>
+            <p class="mt-1 text-sm text-gray-500">Start shopping to add items to your cart.</p>
+            <div class="mt-6">
+                <a href="{% url 'shop' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#A94130] hover:bg-[#8A3527] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A94130]">
+                    Browse Products
+                </a>
+            </div>
+        </div>
+
+        <!-- Cart summary -->
+        <div id="cart-summary" class="hidden mt-6 border-t border-gray-200 pt-6">
+            <div class="flex justify-between text-base font-medium text-gray-900">
+                <p>Subtotal</p>
+                <p id="cart-subtotal">₱0.00</p>
+            </div>
+            <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+            <div class="mt-6">
+                <a href="{% url 'checkout' %}" class="flex items-center justify-center rounded-md border border-transparent bg-[#A94130] px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-[#8A3527]">
+                    Checkout
+                </a>
+            </div>
+            <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
+                <p>
+                    <a href="{% url 'shop' %}" class="font-medium text-[#A94130] hover:text-[#8A3527]">
+                        Continue Shopping <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </p>
+            </div>
+        </div>
+
+        <!-- You might also like -->
+        <div class="mt-16 border-t border-gray-200 pt-16">
+            <h2 class="text-xl font-bold tracking-tight text-gray-900">You might also like</h2>
+            <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                <!-- Product 1 -->
+                <div class="group relative">
+                    <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-100">
+                        <img src="https://source.unsplash.com/random/800x800/?craft,1" alt="Product" class="h-full w-full object-cover object-center group-hover:opacity-75" />
+                    </div>
+                    <div class="mt-4 flex justify-between">
+                        <div>
+                            <h3 class="text-sm text-gray-700">
+                                <a href="#">
+                                    <span aria-hidden="true" class="absolute inset-0"></span>
+                                    Handcrafted Wooden Bowl
+                                </a>
+                            </h3>
+                            <p class="mt-1 text-sm text-gray-500">By Mindanao Carvers</p>
+                        </div>
+                        <p class="text-sm font-medium text-gray-900">₱1,200</p>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group relative">
+                    <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-100">
+                        <img src="https://source.unsplash.com/random/800x800/?craft,2" alt="Product" class="h-full w-full object-cover object-center group-hover:opacity-75" />
+                    </div>
+                    <div class="mt-4 flex justify-between">
+                        <div>
+                            <h3 class="text-sm text-gray-700">
+                                <a href="#">
+                                    <span aria-hidden="true" class="absolute inset-0"></span>
+                                    Handwoven Basket Set
+                                </a>
+                            </h3>
+                            <p class="mt-1 text-sm text-gray-500">By Bicol Weavers</p>
+                        </div>
+                        <p class="text-sm font-medium text-gray-900">₱850</p>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group relative">
+                    <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-100">
+                        <img src="https://source.unsplash.com/random/800x800/?craft,3" alt="Product" class="h-full w-full object-cover object-center group-hover:opacity-75" />
+                    </div>
+                    <div class="mt-4 flex justify-between">
+                        <div>
+                            <h3 class="text-sm text-gray-700">
+                                <a href="#">
+                                    <span aria-hidden="true" class="absolute inset-0"></span>
+                                    Clay Pottery Set
+                                </a>
+                            </h3>
+                            <p class="mt-1 text-sm text-gray-500">By Ilocos Potters</p>
+                        </div>
+                        <p class="text-sm font-medium text-gray-900">₱1,500</p>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="group relative">
+                    <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-100">
+                        <img src="https://source.unsplash.com/random/800x800/?craft,4" alt="Product" class="h-full w-full object-cover object-center group-hover:opacity-75" />
+                    </div>
+                    <div class="mt-4 flex justify-between">
+                        <div>
+                            <h3 class="text-sm text-gray-700">
+                                <a href="#">
+                                    <span aria-hidden="true" class="absolute inset-0"></span>
+                                    Tribal Necklace
+                                </a>
+                            </h3>
+                            <p class="mt-1 text-sm text-gray-500">By B'laan Artisans</p>
+                        </div>
+                        <p class="text-sm font-medium text-gray-900">₱950</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Product data - in a real application, this would come from your database
+    const products = {
+        '1': {
+            'id': '1', 
+            'name': 'Handwoven Inabel Blanket - Traditional Ilocano Textile', 
+            'price': 2200.00,
+            'original_price': 2800.00,
+            'image': "{% static 'images/handwoven.jpg' %}",
+            'artisan': 'Ilocano Weavers Collective'
+        },
+        '2': {
+            'id': '2',
+            'name': 'T\'nalak Table Runner - T\'boli Handwoven Fabric',
+            'price': 1500.00,
+            'original_price': 1899.00,
+            'image': "{% static 'images/fabric.jpg' %}",
+            'artisan': 'T\'boli Dreamweavers'
+        },
+        '3': {
+            'id': '3',
+            'name': 'Handcrafted Bulul Figure - Ifugao Rice God',
+            'price': 3500.00,
+            'original_price': 4299.00,
+            'image': "{% static 'images/ricegod.jpg' %}",
+            'artisan': 'Ifugao Master Carvers'
+        },
+        '4': {
+            'id': '4',
+            'name': 'Yakan Handwoven Placemat Set (4 pcs)',
+            'price': 1299.00,
+            'original_price': 1599.00,
+            'image': "{% static 'images/placemat.jpg' %}",
+            'artisan': 'Yakan Weaving Community'
+        },
+        '5': {
+            'id': '5',
+            'name': 'Pineapple Fiber (Piña) Handkerchief - Embroidered',
+            'price': 850.00,
+            'original_price': 1200.00,
+            'image': "{% static 'images/handkerchief.jpg' %}",
+            'artisan': 'Aklan Fiber Artisans'
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load cart data
+        renderCart();
+
+        // Quantity increment/decrement functionality
+        function setupQuantityButtons() {
+            document.querySelectorAll('[data-action="decrement"]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = this.closest('.cart-item').dataset.id;
+                    updateQuantity(productId, -1);
+                });
+            });
+            
+            document.querySelectorAll('[data-action="increment"]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = this.closest('.cart-item').dataset.id;
+                    updateQuantity(productId, 1);
+                });
+            });
+
+            document.querySelectorAll('[data-action="remove"]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = this.closest('.cart-item').dataset.id;
+                    removeFromCart(productId);
+                });
+            });
+        }
+
+        function updateQuantity(productId, change) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || {};
+            
+            if (cart[productId]) {
+                cart[productId]['quantity'] += change;
+                
+                if (cart[productId]['quantity'] <= 0) {
+                    delete cart[productId];
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart();
+            }
+        }
+
+        function removeFromCart(productId) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || {};
+            
+            if (cart[productId]) {
+                delete cart[productId];
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart();
+            }
+        }
+        
+        function renderCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || {};
+            const cartItemsContainer = document.getElementById('cart-items');
+            const emptyCartMessage = document.getElementById('empty-cart');
+            const cartSummary = document.getElementById('cart-summary');
+            
+            // Check if cart is empty
+            if (Object.keys(cart).length === 0) {
+                cartItemsContainer.innerHTML = '';
+                emptyCartMessage.classList.remove('hidden');
+                cartSummary.classList.add('hidden');
+                return;
+            }
+            
+            // Cart is not empty
+            emptyCartMessage.classList.add('hidden');
+            cartSummary.classList.remove('hidden');
+            
+            // Generate cart items HTML
+            let cartHTML = `<ul role="list" class="divide-y divide-gray-200 border-t border-b border-gray-200">`;
+            let subtotal = 0;
+            
+            for (const productId in cart) {
+                if (products[productId]) {
+                    const product = products[productId];
+                    const quantity = cart[productId]['quantity'];
+                    const itemTotal = product.price * quantity;
+                    subtotal += itemTotal;
+                    
+                    cartHTML += `
+                        <li class="cart-item flex py-6" data-id="${productId}">
+                            <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                <img src="${product.image}" alt="${product.name}" class="h-full w-full object-cover object-center">
+                            </div>
+
+                            <div class="ml-4 flex flex-1 flex-col">
+                                <div>
+                                    <div class="flex justify-between text-base font-medium text-gray-900">
+                                        <h3>${product.name}</h3>
+                                        <p class="ml-4">₱${itemTotal.toFixed(2)}</p>
+                                    </div>
+                                    <p class="mt-1 text-sm text-gray-500">${product.artisan}</p>
+                                </div>
+                                <div class="flex flex-1 items-end justify-between text-sm">
+                                    <div class="flex items-center">
+                                        <span class="mr-2">Qty:</span>
+                                        <button type="button" data-action="decrement" class="px-2 py-1 border border-gray-300 rounded-l">-</button>
+                                        <span class="px-4 py-1 border-t border-b border-gray-300">${quantity}</span>
+                                        <button type="button" data-action="increment" class="px-2 py-1 border border-gray-300 rounded-r">+</button>
+                                    </div>
+
+                                    <button type="button" class="font-medium text-[#A94130] hover:text-[#8A3527]" data-action="remove">Remove</button>
+                                </div>
+                            </div>
+                        </li>
+                    `;
+                }
+            }
+            
+            cartHTML += `</ul>`;
+            cartItemsContainer.innerHTML = cartHTML;
+            
+            // Update subtotal
+            document.getElementById('cart-subtotal').textContent = `₱${subtotal.toFixed(2)}`;
+            
+            // Setup cart interaction
+            setupQuantityButtons();
+
+            // Store subtotal for checkout
+            sessionStorage.setItem('cart_subtotal', subtotal.toFixed(2));
+        }
+    });
+</script>
+{% endblock %}

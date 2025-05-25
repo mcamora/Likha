@@ -1,0 +1,115 @@
+<!-- Quick View Modal -->
+<div id="quickViewModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex min-h-screen items-end justify-center px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+        <!-- Background overlay -->
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="closeQuickView()"></div>
+        
+        <!-- Modal panel -->
+        <div class="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="w-full">
+                        <div class="mt-3 text-center sm:mt-0 sm:text-left">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-product-title">
+                                    Product Name
+                                </h3>
+                                <button type="button" class="rounded-md bg-white text-gray-400 hover:text-gray-500" onclick="closeQuickView()">
+                                    <span class="sr-only">Close</span>
+                                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <div class="mt-4 flex flex-col sm:flex-row">
+                                <div class="mr-6 flex-shrink-0">
+                                    <img id="modal-product-image" class="h-64 w-full object-cover object-center sm:h-48 sm:w-48 rounded-md" src="" alt="">
+                                </div>
+                                <div class="mt-4 sm:mt-0">
+                                    <p class="text-sm text-gray-500" id="modal-product-category">Category</p>
+                                    <p class="mt-1 text-xl font-semibold text-[#A94130]" id="modal-product-price">Price</p>
+                                    <div class="mt-3">
+                                        <p class="text-sm text-gray-700" id="modal-product-description">Description</p>
+                                    </div>
+                                    <div class="mt-6">
+                                        <div class="flex items-center">
+                                            <div class="flex text-amber-400">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                            </div>
+                                            <span class="ml-2 text-sm text-gray-600">5.0 (32 reviews)</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-6">
+                                        <div class="flex items-center">
+                                            <span class="mr-3 text-sm font-medium text-gray-700">Quantity:</span>
+                                            <div class="flex items-center border border-gray-300 rounded-md">
+                                                <button type="button" class="px-3 py-1 text-gray-600 hover:bg-gray-100" data-action="decrement">-</button>
+                                                <input type="text" class="w-10 text-center border-0 focus:ring-0" value="1" readonly>
+                                                <button type="button" class="px-3 py-1 text-gray-600 hover:bg-gray-100" data-action="increment">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <button type="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-[#A94130] px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-[#8A3527] sm:ml-3 sm:w-auto sm:text-sm">
+                    Add to Cart
+                </button>
+                <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="closeQuickView()">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openQuickView(title, category, imageUrl, price, description) {
+        document.getElementById('modal-product-title').textContent = title;
+        document.getElementById('modal-product-category').textContent = category;
+        document.getElementById('modal-product-image').src = imageUrl;
+        document.getElementById('modal-product-price').textContent = price;
+        document.getElementById('modal-product-description').textContent = description;
+        document.getElementById('quickViewModal').classList.remove('hidden');
+    }
+    
+    function closeQuickView() {
+        document.getElementById('quickViewModal').classList.add('hidden');
+    }
+    
+    // Quantity increment/decrement functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const decrementButtons = document.querySelectorAll('[data-action="decrement"]');
+        const incrementButtons = document.querySelectorAll('[data-action="increment"]');
+        
+        decrementButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const target = this.nextElementSibling;
+                let value = Number(target.value);
+                if(value > 1) {
+                    value--;
+                    target.value = value;
+                }
+            });
+        });
+        
+        incrementButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const target = this.previousElementSibling;
+                let value = Number(target.value);
+                value++;
+                target.value = value;
+            });
+        });
+    });
+</script>

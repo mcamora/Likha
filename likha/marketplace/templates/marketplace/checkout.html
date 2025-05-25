@@ -1,0 +1,409 @@
+{% extends 'marketplace/base.html' %}
+{% load static %}
+{% block title %}Checkout - Likha{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50">
+    <div class="mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Checkout</h1>
+        </div>
+
+        <div class="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12">
+            <!-- Checkout form -->
+            <div class="lg:col-span-7">
+                <form id="checkout-form" class="space-y-6">
+                    <div>
+                        <h2 class="text-lg font-medium text-gray-900">Contact Information</h2>
+                        <div class="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+                            <div class="sm:col-span-2">
+                                <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
+                                <div class="mt-1">
+                                    <input type="email" id="email" name="email" autocomplete="email" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130]">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="text-lg font-medium text-gray-900">Shipping Information</h2>
+                        <div class="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+                            <div>
+                                <label for="first-name" class="block text-sm font-medium text-gray-700">First name</label>
+                                <div class="mt-1">
+                                    <input type="text" id="first-name" name="first-name" autocomplete="given-name" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130]">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label>
+                                <div class="mt-1">
+                                    <input type="text" id="last-name" name="last-name" autocomplete="family-name" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130]">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-2">
+                                <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
+                                <div class="mt-1">
+                                    <input type="text" id="address" name="address" autocomplete="street-address" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130]">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                                <div class="mt-1">
+                                    <input type="text" id="city" name="city" autocomplete="address-level2" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130]">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="postal-code" class="block text-sm font-medium text-gray-700">Postal code</label>
+                                <div class="mt-1">
+                                    <input type="text" id="postal-code" name="postal-code" autocomplete="postal-code" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130]">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-2">
+                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                                <div class="mt-1">
+                                    <input type="tel" id="phone" name="phone" autocomplete="tel" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130]">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="text-lg font-medium text-gray-900">Payment Method</h2>
+                        <div class="mt-4 space-y-4">
+                            <!-- Payment method options -->
+                            <div class="flex items-center mb-4">
+                                <input id="payment-method-credit" name="payment-method" type="radio" value="credit" class="h-4 w-4 text-[#A94130] focus:ring-[#A94130] border-gray-300" checked>
+                                <label for="payment-method-credit" class="ml-3 block text-sm font-medium text-gray-700">
+                                    Credit / Debit Card
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center mb-4">
+                                <input id="payment-method-gcash" name="payment-method" type="radio" value="gcash" class="h-4 w-4 text-[#A94130] focus:ring-[#A94130] border-gray-300">
+                                <label for="payment-method-gcash" class="ml-3 block text-sm font-medium text-gray-700">
+                                    GCash
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center mb-4">
+                                <input id="payment-method-paypal" name="payment-method" type="radio" value="paypal" class="h-4 w-4 text-[#A94130] focus:ring-[#A94130] border-gray-300">
+                                <label for="payment-method-paypal" class="ml-3 block text-sm font-medium text-gray-700">
+                                    PayPal
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <input id="payment-method-cod" name="payment-method" type="radio" value="cod" class="h-4 w-4 text-[#A94130] focus:ring-[#A94130] border-gray-300">
+                                <label for="payment-method-cod" class="ml-3 block text-sm font-medium text-gray-700">
+                                    Cash on Delivery
+                                </label>
+                            </div>
+
+                            <!-- Credit card details - shown only when credit/debit card is selected -->
+                            <div id="credit-card-details" class="mt-6">
+                                <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+                                    <div class="sm:col-span-2">
+                                        <label for="card-number" class="block text-sm font-medium text-gray-700">Card number</label>
+                                        <div class="mt-1">
+                                            <input type="text" id="card-number" name="card-number" placeholder="1234 1234 1234 1234" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130]">
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label for="expiration-date" class="block text-sm font-medium text-gray-700">Expiration date</label>
+                                        <div class="mt-1">
+                                            <input type="text" id="expiration-date" name="expiration-date" placeholder="MM/YY" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130]">
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label for="cvc" class="block text-sm font-medium text-gray-700">CVC</label>
+                                        <div class="mt-1">
+                                            <input type="text" id="cvc" name="cvc" placeholder="123" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130]">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- GCash details - initially hidden -->
+                            <div id="gcash-details" class="mt-6 hidden">
+                                <div class="sm:col-span-2">
+                                    <label for="gcash-number" class="block text-sm font-medium text-gray-700">GCash Number</label>
+                                    <div class="mt-1">
+                                        <input type="tel" id="gcash-number" name="gcash-number" placeholder="09XX XXX XXXX" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130]">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- PayPal details - initially hidden -->
+                            <div id="paypal-details" class="mt-6 hidden">
+                                <div class="sm:col-span-2">
+                                    <label for="paypal-email" class="block text-sm font-medium text-gray-700">PayPal Email</label>
+                                    <div class="mt-1">
+                                        <input type="email" id="paypal-email" name="paypal-email" placeholder="email@example.com" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130]">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- COD details - initially hidden -->
+                            <div id="cod-details" class="mt-6 hidden">
+                                <div class="rounded-md bg-yellow-50 p-4">
+                                    <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h3 class="text-sm font-medium text-yellow-800">Cash on Delivery Information</h3>
+                                            <div class="mt-2 text-sm text-yellow-700">
+                                                <p>Please prepare the exact amount on delivery. Our courier will contact you before delivery.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 flex justify-end border-t border-gray-200 pt-6">
+                        <button type="submit" class="rounded-md border border-transparent bg-[#A94130] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#8A3527] focus:outline-none focus:ring-2 focus:ring-[#A94130] focus:ring-offset-2">
+                            Place Order
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Order summary -->
+            <div class="mt-10 lg:col-span-5 lg:mt-0">
+                <div class="rounded-lg bg-white shadow-md p-6">
+                    <h2 class="text-lg font-medium text-gray-900">Order summary</h2>
+
+                    <div id="order-summary" class="mt-6 space-y-4">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+
+                    <div class="mt-6 border-t border-gray-200 pt-6 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="text-sm text-gray-600">Subtotal</div>
+                            <div class="text-sm font-medium text-gray-900" id="summary-subtotal">₱0.00</div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="text-sm text-gray-600">Shipping</div>
+                            <div class="text-sm font-medium text-gray-900">₱150.00</div>
+                        </div>
+
+                        <div class="flex items-center justify-between border-t border-gray-200 pt-4">
+                            <div class="text-base font-medium text-gray-900">Order total</div>
+                            <div class="text-base font-medium text-gray-900" id="summary-total">₱0.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Order Success Modal -->
+<div id="success-modal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <!-- Background overlay -->
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+        <!-- Modal panel -->
+        <div class="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <!-- Check mark icon -->
+                        <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                            Order Confirmed!
+                        </h3>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-500">
+                                Thank you for your purchase. We've received your order and will begin processing it right away.
+                                You will receive an email confirmation shortly.
+                            </p>
+                            <p class="text-sm font-medium text-gray-700 mt-3">
+                                Order #: <span id="order-number">12345</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <a href="{% url 'home' %}" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#A94130] text-base font-medium text-white hover:bg-[#8A3527] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A94130] sm:ml-3 sm:w-auto sm:text-sm">
+                    Continue Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Product data - in a real application, this would come from your database
+    const products = {
+        '1': {
+            'id': '1', 
+            'name': 'Handwoven Inabel Blanket - Traditional Ilocano Textile', 
+            'price': 2200.00,
+            'original_price': 2800.00,
+            'image': "{% static 'images/handwoven.jpg' %}",
+            'artisan': 'Ilocano Weavers Collective'
+        },
+        '2': {
+            'id': '2',
+            'name': 'T\'nalak Table Runner - T\'boli Handwoven Fabric',
+            'price': 1500.00,
+            'original_price': 1899.00,
+            'image': "{% static 'images/fabric.jpg' %}",
+            'artisan': 'T\'boli Dreamweavers'
+        },
+        '3': {
+            'id': '3',
+            'name': 'Handcrafted Bulul Figure - Ifugao Rice God',
+            'price': 3500.00,
+            'original_price': 4299.00,
+            'image': "{% static 'images/ricegod.jpg' %}",
+            'artisan': 'Ifugao Master Carvers'
+        },
+        '4': {
+            'id': '4',
+            'name': 'Yakan Handwoven Placemat Set (4 pcs)',
+            'price': 1299.00,
+            'original_price': 1599.00,
+            'image': "{% static 'images/placemat.jpg' %}",
+            'artisan': 'Yakan Weaving Community'
+        },
+        '5': {
+            'id': '5',
+            'name': 'Pineapple Fiber (Piña) Handkerchief - Embroidered',
+            'price': 850.00,
+            'original_price': 1200.00,
+            'image': "{% static 'images/handkerchief.jpg' %}",
+            'artisan': 'Aklan Fiber Artisans'
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load cart data and display order summary
+        renderOrderSummary();
+
+        // Handle payment method selection
+        const paymentMethods = document.querySelectorAll('input[name="payment-method"]');
+        const creditCardDetails = document.getElementById('credit-card-details');
+        const gcashDetails = document.getElementById('gcash-details');
+        const paypalDetails = document.getElementById('paypal-details');
+        const codDetails = document.getElementById('cod-details');
+
+        // Set required attributes for credit card fields
+        const cardFields = creditCardDetails.querySelectorAll('input');
+        cardFields.forEach(field => field.required = true);
+
+        paymentMethods.forEach(method => {
+            method.addEventListener('change', function() {
+                // Hide all payment details sections
+                creditCardDetails.classList.add('hidden');
+                gcashDetails.classList.add('hidden');
+                paypalDetails.classList.add('hidden');
+                codDetails.classList.add('hidden');
+
+                // Remove required attribute from all fields
+                cardFields.forEach(field => field.required = false);
+                document.getElementById('gcash-number').required = false;
+                document.getElementById('paypal-email').required = false;
+
+                // Show the selected payment details section
+                switch(this.value) {
+                    case 'credit':
+                        creditCardDetails.classList.remove('hidden');
+                        cardFields.forEach(field => field.required = true);
+                        break;
+                    case 'gcash':
+                        gcashDetails.classList.remove('hidden');
+                        document.getElementById('gcash-number').required = true;
+                        break;
+                    case 'paypal':
+                        paypalDetails.classList.remove('hidden');
+                        document.getElementById('paypal-email').required = true;
+                        break;
+                    case 'cod':
+                        codDetails.classList.remove('hidden');
+                        break;
+                }
+            });
+        });
+
+        // Handle form submission
+        document.getElementById('checkout-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // In a real application, you would send the form data to your server
+            // For this demo, we'll just show the success modal
+            const orderNumber = Math.floor(100000 + Math.random() * 900000); // Random 6-digit number
+            document.getElementById('order-number').textContent = orderNumber;
+            
+            // Display success modal
+            document.getElementById('success-modal').classList.remove('hidden');
+            
+            // Clear the cart
+            localStorage.removeItem('cart');
+        });
+        
+        function renderOrderSummary() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || {};
+            const orderSummaryContainer = document.getElementById('order-summary');
+            
+            // Calculate subtotal
+            let subtotal = 0;
+            let summaryHTML = '';
+            
+            for (const productId in cart) {
+                if (products[productId]) {
+                    const product = products[productId];
+                    const quantity = cart[productId]['quantity'];
+                    const itemTotal = product.price * quantity;
+                    subtotal += itemTotal;
+                    
+                    summaryHTML += `
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 w-16 h-16 rounded-md overflow-hidden">
+                                <img src="${product.image}" alt="${product.name}" class="w-full h-full object-center object-cover">
+                            </div>
+                            <div class="ml-4 flex-1">
+                                <h3 class="text-sm font-medium text-gray-900">${product.name}</h3>
+                                <p class="text-xs text-gray-500">${product.artisan}</p>
+                                <div class="flex justify-between mt-1">
+                                    <p class="text-sm text-gray-500">Qty ${quantity}</p>
+                                    <p class="text-sm font-medium text-gray-900">₱${itemTotal.toFixed(2)}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Update order summary
+            orderSummaryContainer.innerHTML = summaryHTML;
+            
+            // Update subtotal and total
+            const shipping = 150; // Fixed shipping cost
+            document.getElementById('summary-subtotal').textContent = `₱${subtotal.toFixed(2)}`;
+            document.getElementById('summary-total').textContent = `₱${(subtotal + shipping).toFixed(2)}`;
+        }
+    });
+</script>
+{% endblock %}

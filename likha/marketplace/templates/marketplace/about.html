@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us - Likha</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                primary: {
+                    DEFAULT: '#A94130',
+                    dark: '#8A3527',
+                }
+            }
+        }
+    }
+}
+</script>
+</head>
+<body class="min-h-screen bg-gray-50">
+<!-- Header -->
+<header class="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-gray-200 bg-white px-4 md:px-6">
+<div class="flex items-center gap-4">
+    <a href="{% if user.is_authenticated %}{% url 'home2' %}{% else %}/{% endif %}" class="flex items-center">
+        <span class="text-xl font-bold text-[#A94130]">Likha</span>
+    </a>
+    <nav class="hidden md:flex items-center space-x-4 text-sm">
+        <a href="{% if user.is_authenticated %}{% url 'home2' %}{% else %}/{% endif %}" class="font-medium text-gray-500 hover:text-gray-900">Home</a>
+        <a href="/artisans" class="font-medium text-gray-500 hover:text-gray-900">Artisans</a>
+        <a href="/shop" class="font-medium text-gray-500 hover:text-gray-900">Shop</a>
+        <a href="/about" class="font-medium text-gray-900 border-b-2 border-[#A94130]">About</a>
+    </nav>
+</div>
+<div class="flex items-center gap-4">
+    <div class="relative hidden md:block w-64">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+        <input type="search" placeholder="Search Filipino crafts..." class="w-full bg-gray-50 border border-gray-200 pl-9 rounded-full py-2 px-3">
+    </div>
+    <button class="md:hidden" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+    </button>
+    {% if user.is_authenticated %}
+    <div class="relative">
+        <button aria-label="Account" class="flex items-center focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </button>
+        <!-- You can add a dropdown menu here if needed -->
+    </div>
+    <a href="{% url 'logout' %}" class="text-sm text-gray-700 hover:text-[#A94130]">Logout</a>
+    {% else %}
+    <button aria-label="Login" onclick="window.location.href='{% url 'login_signup' %}'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+    </button>
+    {% endif %}
+    <a href="/cart" aria-label="Cart" class="relative">
+        <div class="relative">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
+            <span class="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-[#A94130] text-[10px] font-medium text-white">3</span>
+        </div>
+    </a>
+</div>
+</header>
+
+<!-- Breadcrumbs -->
+<nav class="bg-white px-4 py-3 text-sm md:px-6" aria-label="Breadcrumb">
+<ol class="flex items-center space-x-2">
+    <li>
+        <a href="/" class="text-gray-500 hover:text-gray-700">Home</a>
+    </li>
+    <li class="flex items-center space-x-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-gray-400"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        <span class="text-gray-900 font-medium">About Us</span>
+    </li>
+</ol>
+</nav>
+
+<!-- Hero Section -->
+<div class="bg-white">
+<div class="relative">
+    <div class="absolute inset-0">
+        <img src="/placeholder.svg?height=500&width=1200" alt="Filipino artisans at work" class="h-full w-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-r from-[#A94130]/80 to-black/50 mix-blend-multiply"></div>
+    </div>
+    <div class="relative mx-auto max-w-7xl py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+        <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">Our Story</h1>
+        <p class="mt-6 max-w-3xl text-xl text-gray-100">Connecting Filipino artisans with the world, preserving cultural heritage through handcrafted treasures.</p>
+    </div>
+</div>
+</div>
+
+<!-- Mission & Vision Section -->
+<div class="bg-white py-16 sm:py-24">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="lg:text-center">
+        <h2 class="text-base font-semibold uppercase tracking-wide text-[#A94130]">Our Mission & Vision</h2>
+        <p class="mt-2 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">Preserving Heritage, Empowering Artisans</p>
+        <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">We're on a mission to connect Filipino artisans with global markets while preserving cultural traditions and ensuring fair compensation for their craft.</p>
+    </div>
+
+    <div class="mt-16">
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+            <div class="bg-gray-50 p-8 rounded-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Our Mission</h3>
+                <p class="text-gray-600">Our mission is to provide a secure, user-friendly, and innovative digital platform that enables Filipino artisans and entrepreneurs to showcase and sell their handmade products. </p>
+            </div>
+            <div class="bg-gray-50 p-8 rounded-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Our Vision</h3>
+                <p class="text-gray-600">To be the leading online marketplace that empowers Filipino artisans and small businesses by providing a dedicated digital platform to showcase their handmade products, connect with a global audience, and preserve cultural heritage</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Our Story Section -->
+<div class="bg-gray-50 py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="lg:grid lg:grid-cols-1 lg:gap-8 lg:items-center text-center">
+            <div>
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">The Likha Story</h2>
+                <p class="mt-3 max-w-3xl mx-auto text-lg text-gray-500">Likha, meaning "creation" in Filipino, was born from a deep appreciation for the rich artistic traditions of the Philippines.</p>
+                <div class="mt-8 space-y-6">
+                    <p class="text-base text-gray-500">Our journey began in 2018 when our founder, Isabella Santos, returned to her ancestral home in the Philippines after studying design abroad. She was struck by the incredible craftsmanship she encountered in remote villages—intricate weaving, pottery, woodcarving, and jewelry-making that had been passed down through generations.</p>
+                    <p class="text-base text-gray-500">Despite their exceptional skill, many artisans struggled to make a living wage, with limited access to markets beyond their local communities. Isabella saw an opportunity to bridge this gap by creating a platform that would connect these talented craftspeople with appreciative customers around the world.</p>
+                    <p class="text-base text-gray-500">Starting with just five artisan partners from her grandmother's village in Bicol, Likha has grown to support over 200 artisans from across the Philippine archipelago. Each piece in our marketplace tells a story—of cultural heritage, of skilled hands, and of communities working to preserve their traditions in a rapidly changing world.</p>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>
+
+<!-- Our Values Section -->
+<div class="bg-white py-16 sm:py-24">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="text-center">
+        <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Our Values</h2>
+        <p class="mt-4 max-w-3xl mx-auto text-xl text-gray-500">The principles that guide everything we do at Likha.</p>
+    </div>
+
+    <div class="mt-16">
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div class="flex flex-col items-center">
+                <div class="flex h-16 w-16 items-center justify-center rounded-full bg-[#A94130]/10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-[#A94130]"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                </div>
+                <h3 class="mt-6 text-xl font-medium text-gray-900">Cultural Preservation</h3>
+                <p class="mt-2 text-base text-gray-500 text-center">We are committed to preserving and promoting the rich cultural heritage of the Philippines through traditional crafts and techniques.</p>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="flex h-16 w-16 items-center justify-center rounded-full bg-[#A94130]/10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-[#A94130]"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </div>
+                <h3 class="mt-6 text-xl font-medium text-gray-900">Fair Compensation</h3>
+                <p class="mt-2 text-base text-gray-500 text-center">We ensure artisans receive fair payment for their work, enabling them to sustain their livelihoods and communities.</p>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="flex h-16 w-16 items-center justify-center rounded-full bg-[#A94130]/10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-[#A94130]"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg>
+                </div>
+                <h3 class="mt-6 text-xl font-medium text-gray-900">Sustainability</h3>
+                <p class="mt-2 text-base text-gray-500 text-center">We promote environmentally responsible practices in production and packaging, minimizing our ecological footprint.</p>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="flex h-16 w-16 items-center justify-center rounded-full bg-[#A94130]/10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-[#A94130]"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                </div>
+                <h3 class="mt-6 text-xl font-medium text-gray-900">Community Empowerment</h3>
+                <p class="mt-2 text-base text-gray-500 text-center">We invest in artisan communities through education, skills training, and infrastructure support.</p>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="flex h-16 w-16 items-center justify-center rounded-full bg-[#A94130]/10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-[#A94130]"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </div>
+                <h3 class="mt-6 text-xl font-medium text-gray-900">Authenticity</h3>
+                <p class="mt-2 text-base text-gray-500 text-center">We celebrate and verify the authentic origins and techniques behind each handcrafted piece.</p>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="flex h-16 w-16 items-center justify-center rounded-full bg-[#A94130]/10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-[#A94130]"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <h3 class="mt-6 text-xl font-medium text-gray-900">Transparency</h3>
+                <p class="mt-2 text-base text-gray-500 text-center">We maintain open communication about our sourcing, pricing, and impact with both artisans and customers.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Sustainability Section -->
+<div class="bg-gray-50 py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="lg:grid lg:grid-cols-3 lg:gap-8 lg:items-start">
+            <div class="flex flex-col items-center text-center">
+                <div class="flex items-center justify-center h-16 w-16 rounded-md bg-[#A94130] text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                </div>
+                <h3 class="mt-6 text-lg font-medium text-gray-900">Sustainable Materials</h3>
+                <p class="mt-2 text-base text-gray-500">We prioritize natural, renewable, and locally-sourced materials in all our products, reducing environmental impact while supporting local supply chains.</p>
+            </div>
+
+            <div class="flex flex-col items-center text-center">
+                <div class="flex items-center justify-center h-16 w-16 rounded-md bg-[#A94130] text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                </div>
+                <h3 class="mt-6 text-lg font-medium text-gray-900">Eco-Friendly Packaging</h3>
+                <p class="mt-2 text-base text-gray-500">All our packaging is plastic-free, using recycled and biodegradable materials that minimize environmental impact without compromising product protection.</p>
+            </div>
+
+            <div class="flex flex-col items-center text-center">
+                <div class="flex items-center justify-center h-16 w-16 rounded-md bg-[#A94130] text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+                        <path d="M12 3v19"></path>
+                        <path d="M5 8c1.5 2.5 5 2.5 6.5 0S15 3 16.5 5.5 21 8 22 6"></path>
+                        <path d="M5 16c1.5-2.5 5-2.5 6.5 0S15 21 16.5 18.5 21 16 22 18"></path>
+                    </svg>
+                </div>
+                <h3 class="mt-6 text-lg font-medium text-gray-900">Carbon-Neutral Shipping</h3>
+                <p class="mt-2 text-base text-gray-500">We offset the carbon footprint of all our shipments through investments in verified environmental projects in the Philippines.</p>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+</div>
+
+<!-- Join Us CTA Section -->
+<div class="bg-[#A94130]">
+<div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+        <span class="block">Ready to support Filipino artisans?</span>
+        <span class="block text-white">Join our community today.</span>
+    </h2>
+    <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">
+        <div class="inline-flex rounded-md shadow">
+            <a href="/shop" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-[#A94130] bg-white hover:bg-gray-50">
+                Shop Now
+            </a>
+        </div>
+        <div class="ml-3 inline-flex rounded-md shadow">
+            <a href="/artisans" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#8A3527] hover:bg-[#7A2517]">
+                Meet Our Artisans
+            </a>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-white border-t border-gray-200">
+<div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-4">
+        <div class="space-y-4">
+            <h3 class="text-lg font-bold text-[#A94130]">Likha</h3>
+            <p class="text-sm text-gray-600">
+                Connecting Filipino artisans with the world, preserving cultural heritage through handcrafted treasures.
+            </p>
+            <div class="flex space-x-4">
+                <a href="#" class="text-gray-500 hover:text-[#A94130]">
+                    <span class="sr-only">Facebook</span>
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-[#A94130]">
+                    <span class="sr-only">Instagram</span>
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-[#A94130]">
+                    <span class="sr-only">Twitter</span>
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-sm font-semibold text-gray-900">Shop</h3>
+            <ul role="list" class="mt-4 space-y-2">
+                <li>
+                    <a href="#" class="text-sm text-gray-600 hover:text-[#A94130]">All Products</a>
+                </li>
+                <li>
+                    <a href="#" class="text-sm text-gray-600 hover:text-[#A94130]">New Arrivals</a>
+                </li>
+                <li>
+                    <a href="#" class="text-sm text-gray-600 hover:text-[#A94130]">Best Sellers</a>
+                </li>
+                <li>
+                    <a href="#" class="text-sm text-gray-600 hover:text-[#A94130]">Sale Items</a>
+                </li>
+            </ul>
+        </div>
+
+        <div>
+            <h3 class="text-sm font-semibold text-gray-900">About</h3>
+            <ul role="list" class="mt-4 space-y-2">
+                <li>
+                    <a href="#" class="text-sm text-gray-600 hover:text-[#A94130]">Our Story</a>
+                </li>
+                <li>
+                    <a href="#" class="text-sm text-gray-600 hover:text-[#A94130]">Artisans</a>
+                </li>
+                <li>
+                    <a href="#" class="text-sm text-gray-600 hover:text-[#A94130]">Cultural Heritage</a>
+                </li>
+                <li>
+                    <a href="#" class="text-sm text-gray-600 hover:text-[#A94130]">Sustainability</a>
+                </li>
+            </ul>
+        </div>
+
+        <div>
+            <h3 class="text-sm font-semibold text-gray-900">Customer Service</h3>
+            <ul role="list" class="mt-4 space-y-2">
+                <li>
+                    <a href="#" class="text-sm text-gray-600 hover:text-[#A94130]">Contact Us</a>
+                </li>
+                <li>
+                    <a href="#" class="text-sm text-gray-600 hover:text-[#A94130]">Shipping & Returns</a>
+                </li>
+                <li>
+                    <a href="#" class="text-sm text-gray-600 hover:text-[#A94130]">FAQs</a>
+                </li>
+                <li>
+                    <a href="#" class="text-sm text-gray-600 hover:text-[#A94130]">Privacy Policy</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="mt-8 border-t border-gray-200 pt-8">
+        <p class="text-sm text-gray-500">&copy; 2023 Likha Filipino Artisan Marketplace. All rights reserved.</p>
+    </div>
+</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,610 @@
+{% extends 'marketplace/base.html' %}
+
+{% block title %}SellerForm - Likha{% endblock %}
+
+{% block content %}
+    <!-- Seller Application Form -->
+    <div id="seller-form" class="bg-gray-50 py-16">
+        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <div class="bg-white p-8 shadow-lg rounded-lg">
+                <div class="text-center">
+                    <h2 class="text-2xl font-bold text-gray-900">Apply to Become a Seller</h2>
+                    <p class="mt-2 text-gray-600">
+                        Fill out the form below to start your verification process
+                    </p>
+                </div>
+
+                <form class="mt-8 space-y-6" action="{% url 'home2' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- Step Indicator -->
+                    <div class="border-b border-gray-200 pb-6">
+                        <nav class="flex justify-between">
+                            <button type="button" id="step1-btn" class="group flex items-center" aria-current="step" onclick="showStep(1)">
+                                <span class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border-2 border-[#A94130] bg-[#A94130] text-white">
+                                    <span>1</span>
+                                </span>
+                                <span class="ml-2 text-sm font-medium text-[#A94130]">Business Info</span>
+                            </button>
+
+                            <button type="button" id="step2-btn" class="group flex items-center" onclick="showStep(2)">
+                                <span class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border-2 border-gray-300 text-gray-500">
+                                    <span>2</span>
+                                </span>
+                                <span class="ml-2 text-sm font-medium text-gray-500">Products</span>
+                            </button>
+
+                            <button type="button" id="step3-btn" class="group flex items-center" onclick="showStep(3)">
+                                <span class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border-2 border-gray-300 text-gray-500">
+                                    <span>3</span>
+                                </span>
+                                <span class="ml-2 text-sm font-medium text-gray-500">Verification</span>
+                            </button>
+
+                            <button type="button" id="step4-btn" class="group flex items-center" onclick="showStep(4)">
+                                <span class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border-2 border-gray-300 text-gray-500">
+                                    <span>4</span>
+                                </span>
+                                <span class="ml-2 text-sm font-medium text-gray-500">Review</span>
+                            </button>
+                        </nav>
+                    </div>
+
+                    <!-- Form Steps Container -->
+                    <div class="flex flex-col">
+                        <!-- Step 1: Business Information -->
+                        <div id="step1" class="form-step">
+                            <h3 class="text-lg font-medium text-gray-900">Business Information</h3>
+                            <p class="mt-1 text-sm text-gray-500">
+                                Tell us about your business and craft
+                            </p>
+
+                            <div class="mt-6 flex flex-col space-y-6">
+                                <div class="flex flex-col md:flex-row md:space-x-4 space-y-6 md:space-y-0">
+                                    <div class="flex-1">
+                                        <label for="business-name" class="block text-sm font-medium text-gray-700">Business Name</label>
+                                        <div class="mt-1">
+                                            <input type="text" name="business-name" id="business-name" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm">
+                                        </div>
+                                    </div>
+
+                                    <div class="flex-1">
+                                        <label for="business-type" class="block text-sm font-medium text-gray-700">Business Type</label>
+                                        <div class="mt-1">
+                                            <select id="business-type" name="business-type" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm">
+                                                <option>Individual Artisan</option>
+                                                <option>Small Business</option>
+                                                <option>Cooperative</option>
+                                                <option>Community Enterprise</option>
+                                                <option>Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="business-address" class="block text-sm font-medium text-gray-700">Business Address</label>
+                                    <div class="mt-1">
+                                        <input type="text" name="business-address" id="business-address" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm">
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col md:flex-row md:space-x-4 space-y-6 md:space-y-0">
+                                    <div class="flex-1">
+                                        <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                                        <div class="mt-1">
+                                            <input type="text" name="city" id="city" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm">
+                                        </div>
+                                    </div>
+
+                                    <div class="flex-1">
+                                        <label for="province" class="block text-sm font-medium text-gray-700">Province</label>
+                                        <div class="mt-1">
+                                            <input type="text" name="province" id="province" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col md:flex-row md:space-x-4 space-y-6 md:space-y-0">
+                                    <div class="flex-1">
+                                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                                        <div class="mt-1">
+                                            <input type="tel" name="phone" id="phone" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm">
+                                        </div>
+                                    </div>
+
+                                    <div class="flex-1">
+                                        <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                                        <div class="mt-1">
+                                            <input type="email" name="email" id="email" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="craft-type" class="block text-sm font-medium text-gray-700">Primary Craft Type</label>
+                                    <div class="mt-1">
+                                        <select id="craft-type" name="craft-type" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm">
+                                            <option>Weaving</option>
+                                            <option>Pottery</option>
+                                            <option>Wood Carving</option>
+                                            <option>Jewelry Making</option>
+                                            <option>Textile Arts</option>
+                                            <option>Basket Weaving</option>
+                                            <option>Indigenous Crafts</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="business-description" class="block text-sm font-medium text-gray-700">Business Description</label>
+                                    <div class="mt-1">
+                                        <textarea id="business-description" name="business-description" rows="4" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm" placeholder="Tell us about your business, your craft, and your cultural heritage..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 flex justify-end">
+                                <button type="button" class="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#A94130] focus:ring-offset-2">
+                                    Save Draft
+                                </button>
+                                <button type="button" class="ml-3 rounded-md border border-transparent bg-[#A94130] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#8A3527] focus:outline-none focus:ring-2 focus:ring-[#A94130] focus:ring-offset-2" onclick="showStep(2)">
+                                    Next: Products
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Products Information -->
+                        <div id="step2" class="form-step hidden">
+                            <h3 class="text-lg font-medium text-gray-900">Product Information</h3>
+                            <p class="mt-1 text-sm text-gray-500">
+                                Tell us about the products you plan to sell
+                            </p>
+     
+                            <div class="mt-6 flex flex-col space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Product Categories</label>
+                                    <p class="text-xs text-gray-500 mt-1">Select all that apply</p>
+                                    <div class="mt-2 grid grid-cols-1 gap-y-2 sm:grid-cols-2 gap-x-4">
+                                        <div class="flex items-center">
+                                            <input id="category-traditional-pottery" name="product-categories[]" value="traditional-pottery" type="checkbox" class="h-4 w-4 text-[#A94130] focus:ring-[#A94130] border-gray-300 rounded">
+                                            <label for="category-traditional-pottery" class="ml-2 text-sm text-gray-700">Traditional Pottery</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input id="category-indigenous-jewelry" name="product-categories[]" value="indigenous-jewelry" type="checkbox" class="h-4 w-4 text-[#A94130] focus:ring-[#A94130] border-gray-300 rounded">
+                                            <label for="category-indigenous-jewelry" class="ml-2 text-sm text-gray-700">Indigenous Jewelry</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input id="category-home-decor" name="product-categories[]" value="home-decor" type="checkbox" class="h-4 w-4 text-[#A94130] focus:ring-[#A94130] border-gray-300 rounded">
+                                            <label for="category-home-decor" class="ml-2 text-sm text-gray-700">Home & Decor</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input id="category-wearables" name="product-categories[]" value="wearables" type="checkbox" class="h-4 w-4 text-[#A94130] focus:ring-[#A94130] border-gray-300 rounded">
+                                            <label for="category-wearables" class="ml-2 text-sm text-gray-700">Wearables & Bags</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input id="category-textiles" name="product-categories[]" value="textiles" type="checkbox" class="h-4 w-4 text-[#A94130] focus:ring-[#A94130] border-gray-300 rounded">
+                                            <label for="category-textiles" class="ml-2 text-sm text-gray-700">Textiles</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input id="category-woodcraft" name="product-categories[]" value="woodcraft" type="checkbox" class="h-4 w-4 text-[#A94130] focus:ring-[#A94130] border-gray-300 rounded">
+                                            <label for="category-woodcraft" class="ml-2 text-sm text-gray-700">Woodcraft</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="price-range" class="block text-sm font-medium text-gray-700">Price Range</label>
+                                    <div class="mt-1 flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
+                                        <div class="flex-1">
+                                            <label for="min-price" class="block text-xs text-gray-500">Minimum (₱)</label>
+                                            <input type="number" name="min-price" id="min-price" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm">
+                                        </div>
+                                        <div class="flex-1">
+                                            <label for="max-price" class="block text-xs text-gray-500">Maximum (₱)</label>
+                                            <input type="number" name="max-price" id="max-price" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="materials-used" class="block text-sm font-medium text-gray-700">Materials Used</label>
+                                    <div class="mt-1">
+                                        <input type="text" name="materials-used" id="materials-used" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm" placeholder="e.g., Abaca fiber, Clay, Wood, Rattan, etc.">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="production-capacity" class="block text-sm font-medium text-gray-700">Production Capacity</label>
+                                    <div class="mt-1">
+                                        <select id="production-capacity" name="production-capacity" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm">
+                                            <option>1-10 items per month</option>
+                                            <option>11-30 items per month</option>
+                                            <option>31-50 items per month</option>
+                                            <option>51-100 items per month</option>
+                                            <option>100+ items per month</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="product-description" class="block text-sm font-medium text-gray-700">Product Description</label>
+                                    <div class="mt-1">
+                                        <textarea id="product-description" name="product-description" rows="4" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm" placeholder="Describe your products, their cultural significance, and what makes them unique..."></textarea>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Sample Product Images</label>
+                                    <p class="mt-1 text-xs text-gray-500">Upload 2-5 images of your products</p>
+                                    <div class="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                        <div class="space-y-1 text-center">
+                                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            <div class="flex text-sm text-gray-600">
+                                                <label for="product-images" class="relative cursor-pointer bg-white rounded-md font-medium text-[#A94130] hover:text-[#8A3527] focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#A94130]">
+                                                    <span>Upload files</span>
+                                                    <input id="product-images" name="product-images" type="file" class="sr-only" multiple>
+                                                </label>
+                                                <p class="pl-1">or drag and drop</p>
+                                            </div>
+                                            <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 flex justify-between">
+                                <button type="button" class="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#A94130] focus:ring-offset-2" onclick="showStep(1)">
+                                    Previous: Business Info
+                                </button>
+                                <div>
+                                    <button type="button" class="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#A94130] focus:ring-offset-2">
+                                        Save Draft
+                                    </button>
+                                    <button type="button" class="ml-3 rounded-md border border-transparent bg-[#A94130] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#8A3527] focus:outline-none focus:ring-2 focus:ring-[#A94130] focus:ring-offset-2" onclick="showStep(3)">
+                                        Next: Verification
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Verification -->
+                        <div id="step3" class="form-step hidden">
+                            <h3 class="text-lg font-medium text-gray-900">Verification Documents</h3>
+                            <p class="mt-1 text-sm text-gray-500">
+                                Please provide the necessary documents to verify your business
+                            </p>
+
+                            <div class="mt-6 flex flex-col space-y-6">
+                                <div>
+                                    <label for="id-type" class="block text-sm font-medium text-gray-700">ID Type</label>
+                                    <div class="mt-1">
+                                        <select id="id-type" name="id-type" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm">
+                                            <option>National ID</option>
+                                            <option>Passport</option>
+                                            <option>Driver's License</option>
+                                            <option>Postal ID</option>
+                                            <option>Voter's ID</option>
+                                            <option>Other Government ID</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">ID Upload</label>
+                                    <p class="mt-1 text-xs text-gray-500">Upload a clear photo of your ID</p>
+                                    <div class="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                        <div class="space-y-1 text-center">
+                                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            <div class="flex text-sm text-gray-600">
+                                                <label for="id-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-[#A94130] hover:text-[#8A3527] focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#A94130]">
+                                                    <span>Upload file</span>
+                                                    <input id="id-upload" name="id-upload" type="file" class="sr-only">
+                                                </label>
+                                                <p class="pl-1">or drag and drop</p>
+                                            </div>
+                                            <p class="text-xs text-gray-500">PNG, JPG up to 5MB</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="business-registration" class="block text-sm font-medium text-gray-700">Business Registration (if applicable)</label>
+                                    <div class="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                        <div class="space-y-1 text-center">
+                                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            <div class="flex text-sm text-gray-600">
+                                                <label for="business-reg-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-[#A94130] hover:text-[#8A3527] focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#A94130]">
+                                                    <span>Upload file</span>
+                                                    <input id="business-reg-upload" name="business-reg-upload" type="file" class="sr-only">
+                                                </label>
+                                                <p class="pl-1">or drag and drop</p>
+                                            </div>
+                                            <p class="text-xs text-gray-500">PDF, PNG, JPG up to 10MB</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="craft-certification" class="block text-sm font-medium text-gray-700">Craft Certification or Training (if available)</label>
+                                    <div class="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                        <div class="space-y-1 text-center">
+                                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            <div class="flex text-sm text-gray-600">
+                                                <label for="certification-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-[#A94130] hover:text-[#8A3527] focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#A94130]">
+                                                    <span>Upload file</span>
+                                                    <input id="certification-upload" name="certification-upload" type="file" class="sr-only">
+                                                </label>
+                                                <p class="pl-1">or drag and drop</p>
+                                            </div>
+                                            <p class="text-xs text-gray-500">PDF, PNG, JPG up to 10MB</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="bank-info" class="block text-sm font-medium text-gray-700">Payment Information</label>
+                                    <p class="mt-1 text-xs text-gray-500">How would you like to receive payments?</p>
+                                    <div class="mt-2">
+                                        <select id="payment-method" name="payment-method" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm">
+                                            <option>Bank Transfer</option>
+                                            <option>GCash</option>
+                                            <option>PayMaya</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="payment-details" class="block text-sm font-medium text-gray-700">Payment Details</label>
+                                    <div class="mt-1">
+                                        <textarea id="payment-details" name="payment-details" rows="3" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#A94130] focus:ring-[#A94130] sm:text-sm" placeholder="Account name, account number, bank name, etc."></textarea>
+                                    </div>
+                                    <p class="mt-1 text-xs text-gray-500">This information will be kept secure and only used for payment processing.</p>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 flex justify-between">
+                                <button type="button" class="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#A94130] focus:ring-offset-2" onclick="showStep(2)">
+                                    Previous: Products
+                                </button>
+                                <div>
+                                    <button type="button" class="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#A94130] focus:ring-offset-2">
+                                        Save Draft
+                                    </button>
+                                    <button type="button" class="ml-3 rounded-md border border-transparent bg-[#A94130] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#8A3527] focus:outline-none focus:ring-2 focus:ring-[#A94130] focus:ring-offset-2" onclick="showStep(4)">
+                                        Next: Review
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Review -->
+                        <div id="step4" class="form-step hidden">
+                            <h3 class="text-lg font-medium text-gray-900">Review Your Application</h3>
+                            <p class="mt-1 text-sm text-gray-500">
+                                Please review your information before submitting
+                            </p>
+
+                            <div class="mt-6 flex flex-col space-y-6">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="text-sm font-medium text-gray-900">Business Information</h4>
+                                    <div class="mt-2 flex flex-col md:grid md:grid-cols-2 gap-x-4 gap-y-2">
+                                        <div class="text-sm">
+                                            <p class="text-gray-500">Business Name</p>
+                                            <p class="font-medium text-gray-900" id="review-business-name">-</p>
+                                        </div>
+                                        <div class="text-sm">
+                                            <p class="text-gray-500">Business Type</p>
+                                            <p class="font-medium text-gray-900" id="review-business-type">-</p>
+                                        </div>
+                                        <div class="text-sm md:col-span-2">
+                                            <p class="text-gray-500">Address</p>
+                                            <p class="font-medium text-gray-900" id="review-address">-</p>
+                                        </div>
+                                        <div class="text-sm">
+                                            <p class="text-gray-500">Phone</p>
+                                            <p class="font-medium text-gray-900" id="review-phone">-</p>
+                                        </div>
+                                        <div class="text-sm">
+                                            <p class="text-gray-500">Email</p>
+                                            <p class="font-medium text-gray-900" id="review-email">-</p>
+                                        </div>
+                                        <div class="text-sm">
+                                            <p class="text-gray-500">Primary Craft</p>
+                                            <p class="font-medium text-gray-900" id="review-craft">-</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="text-sm font-medium text-gray-900">Product Information</h4>
+                                    <div class="mt-2 flex flex-col md:grid md:grid-cols-2 gap-x-4 gap-y-2">
+                                        <div class="text-sm md:col-span-2">
+                                            <p class="text-gray-500">Categories</p>
+                                            <p class="font-medium text-gray-900" id="review-categories">-</p>
+                                        </div>
+                                        <div class="text-sm">
+                                            <p class="text-gray-500">Price Range</p>
+                                            <p class="font-medium text-gray-900" id="review-price-range">-</p>
+                                        </div>
+                                        <div class="text-sm">
+                                            <p class="text-gray-500">Production Capacity</p>
+                                            <p class="font-medium text-gray-900" id="review-capacity">-</p>
+                                        </div>
+                                        <div class="text-sm md:col-span-2">
+                                            <p class="text-gray-500">Materials</p>
+                                            <p class="font-medium text-gray-900" id="review-materials">-</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="text-sm font-medium text-gray-900">Verification Information</h4>
+                                    <div class="mt-2 flex flex-col md:grid md:grid-cols-2 gap-x-4 gap-y-2">
+                                        <div class="text-sm">
+                                            <p class="text-gray-500">ID Type</p>
+                                            <p class="font-medium text-gray-900" id="review-id-type">-</p>
+                                        </div>
+                                        <div class="text-sm">
+                                            <p class="text-gray-500">Payment Method</p>
+                                            <p class="font-medium text-gray-900" id="review-payment-method">-</p>
+                                        </div>
+                                        <div class="text-sm md:col-span-2">
+                                            <p class="text-gray-500">Documents Uploaded</p>
+                                            <ul class="list-disc list-inside font-medium text-gray-900 mt-1">
+                                                <li id="review-id-doc">ID Document</li>
+                                                <li id="review-business-doc" class="text-gray-400">Business Registration (optional)</li>
+                                                <li id="review-cert-doc" class="text-gray-400">Craft Certification (optional)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="border-t border-gray-200 pt-6">
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <input id="terms" name="terms" type="checkbox" class="h-4 w-4 text-[#A94130] focus:ring-[#A94130] border-gray-300 rounded">
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                            <label for="terms" class="font-medium text-gray-700">I agree to the Terms and Conditions</label>
+                                            <p class="text-gray-500">By checking this box, I confirm that all information provided is accurate and complete. I understand that my application will be reviewed and I may be contacted for additional information.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 flex justify-between">
+                                <button type="button" class="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#A94130] focus:ring-offset-2" onclick="showStep(3)">
+                                    Previous: Verification
+                                </button>
+                                <div>
+                                    <button type="button" class="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#A94130] focus:ring-offset-2">
+                                        Save Draft
+                                    </button>
+                                    <button type="submit" class="ml-3 rounded-md border border-transparent bg-[#A94130] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#8A3527] focus:outline-none focus:ring-2 focus:ring-[#A94130] focus:ring-offset-2">
+                                        Submit Application
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for form steps -->
+    <script>
+        function showStep(stepNumber) {
+            // Hide all steps
+            document.querySelectorAll('.form-step').forEach(step => {
+                step.classList.add('hidden');
+            });
+            
+            // Show the selected step
+            document.getElementById('step' + stepNumber).classList.remove('hidden');
+            
+            // Update step indicators
+            document.querySelectorAll('[id^="step"]').forEach(btn => {
+                if (btn.id === 'step' + stepNumber + '-btn') {
+                    btn.setAttribute('aria-current', 'step');
+                    btn.querySelector('span:first-child').classList.remove('border-gray-300', 'text-gray-500');
+                    btn.querySelector('span:first-child').classList.add('border-[#A94130]', 'bg-[#A94130]', 'text-white');
+                    btn.querySelector('span:last-child').classList.remove('text-gray-500');
+                    btn.querySelector('span:last-child').classList.add('text-[#A94130]');
+                } else if (btn.id.startsWith('step') && btn.id.endsWith('-btn')) {
+                    btn.removeAttribute('aria-current');
+                    const stepNum = parseInt(btn.id.replace('step', '').replace('-btn', ''));
+                    
+                    if (stepNum < stepNumber) {
+                        // Completed steps
+                        btn.querySelector('span:first-child').classList.remove('border-gray-300', 'text-gray-500');
+                        btn.querySelector('span:first-child').classList.add('border-[#A94130]', 'bg-[#A94130]', 'text-white');
+                        btn.querySelector('span:last-child').classList.remove('text-gray-500');
+                        btn.querySelector('span:last-child').classList.add('text-[#A94130]');
+                    } else {
+                        // Future steps
+                        btn.querySelector('span:first-child').classList.remove('border-[#A94130]', 'bg-[#A94130]', 'text-white');
+                        btn.querySelector('span:first-child').classList.add('border-gray-300', 'text-gray-500');
+                        btn.querySelector('span:last-child').classList.remove('text-[#A94130]');
+                        btn.querySelector('span:last-child').classList.add('text-gray-500');
+                    }
+                }
+            });
+            
+            // If we're on the review step, populate the review fields
+            if (stepNumber === 4) {
+                populateReviewData();
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        function populateReviewData() {
+            // Business Information
+            document.getElementById('review-business-name').textContent = document.getElementById('business-name').value || '-';
+            document.getElementById('review-business-type').textContent = document.getElementById('business-type').value || '-';
+            document.getElementById('review-address').textContent = [
+                document.getElementById('business-address').value,
+                document.getElementById('city').value,
+                document.getElementById('province').value
+            ].filter(Boolean).join(', ') || '-';
+            document.getElementById('review-phone').textContent = document.getElementById('phone').value || '-';
+            document.getElementById('review-email').textContent = document.getElementById('email').value || '-';
+            document.getElementById('review-craft').textContent = document.getElementById('craft-type').value || '-';
+            
+            // Product Information
+            const selectedCategories = Array.from(document.querySelectorAll('input[name="product-categories[]"]:checked'))
+                .map(input => input.nextElementSibling.textContent.trim());
+            document.getElementById('review-categories').textContent = selectedCategories.length ? selectedCategories.join(', ') : '-';
+            
+            const minPrice = document.getElementById('min-price').value;
+            const maxPrice = document.getElementById('max-price').value;
+            document.getElementById('review-price-range').textContent = (minPrice || maxPrice) ? 
+                `₱${minPrice || '0'} - ₱${maxPrice || '0'}` : '-';
+            
+            document.getElementById('review-capacity').textContent = document.getElementById('production-capacity').value || '-';
+            document.getElementById('review-materials').textContent = document.getElementById('materials-used').value || '-';
+            
+            // Verification Information
+            document.getElementById('review-id-type').textContent = document.getElementById('id-type').value || '-';
+            document.getElementById('review-payment-method').textContent = document.getElementById('payment-method').value || '-';
+            
+            // Check if files were uploaded
+            if (document.getElementById('id-upload').files.length > 0) {
+                document.getElementById('review-id-doc').classList.remove('text-gray-400');
+            } else {
+                document.getElementById('review-id-doc').classList.add('text-gray-400');
+            }
+            
+            if (document.getElementById('business-reg-upload').files.length > 0) {
+                document.getElementById('review-business-doc').classList.remove('text-gray-400');
+            } else {
+                document.getElementById('review-business-doc').classList.add('text-gray-400');
+            }
+            
+            if (document.getElementById('certification-upload').files.length > 0) {
+                document.getElementById('review-cert-doc').classList.remove('text-gray-400');
+            } else {
+                document.getElementById('review-cert-doc').classList.add('text-gray-400');
+            }
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-8">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <p class="text-sm text-gray-500 text-center">&copy; 2023 Likha Filipino Artisan Marketplace. All rights reserved.</p>
+        </div>
+    </footer>
+{% endblock %}
